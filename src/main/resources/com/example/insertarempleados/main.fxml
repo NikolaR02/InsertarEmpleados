@@ -53,18 +53,35 @@
          <Insets />
       </GridPane.margin>
    </HBox>
-   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.rowIndex="1">
-      <Label text="Codigo del Empleado" />
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.rowIndex="1">
+      <Label text="Empleado">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <TextField id="tfNombre" fx:id="tfCodigo">
          <HBox.margin>
             <Insets />
          </HBox.margin>
       </TextField>
-      <Button id="cargar" mnemonicParsing="false" onAction="#cargar" text="Buscar">
+      <Button id="cargar" mnemonicParsing="false" onAction="#cargar" prefHeight="35.0" prefWidth="80.0" text="Buscar">
          <HBox.margin>
             <Insets right="40.0" />
-         </HBox.margin></Button>
-      <Button id="insertar" mnemonicParsing="false" onAction="#insertar" text="Insertar" />
-      <Button mnemonicParsing="false" onAction="#borrar" text="Borrar" />
+         </HBox.margin>
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button id="insertar" mnemonicParsing="false" onAction="#insertar" prefHeight="35.0" prefWidth="80.0" text="Insertar">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button mnemonicParsing="false" onAction="#borrar" prefHeight="35.0" prefWidth="80.0" text="Borrar">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button mnemonicParsing="false" onAction="#actualizar" prefHeight="35.0" prefWidth="80.0" text="Actualizar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </HBox>
 </GridPane>

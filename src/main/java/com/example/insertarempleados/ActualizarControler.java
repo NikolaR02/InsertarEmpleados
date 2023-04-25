@@ -11,12 +11,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-public class Incertar {
+public class ActualizarControler {
 
-    private final String servidor = "jdbc:mariadb://localhost:5555/noinch?useSSL=false";
-    private final String usuario = "root";
-    private final String passwd = "adminer";
-    private Connection conexionBBDD;
+
     @FXML
     private TextField tfEmployeeNumber;
     @FXML
@@ -34,10 +31,17 @@ public class Incertar {
     @FXML
     private TextField tfJobTitle;
 
+    public void initialize() {
+
+    }
+
     @FXML
     public void altaEmployee() {
         try {
-            conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
+            String servidor = "jdbc:mariadb://localhost:5555/noinch?useSSL=false";
+            String usuario = "root";
+            String passwd = "adminer";
+            Connection conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
             String SQL = "INSERT INTO employees ("
                     + " employeeNumber ,"
                     + " lastName ,"
@@ -64,6 +68,7 @@ public class Incertar {
             st.executeUpdate();
             st.close();
             conexionBBDD.close();
+            volver();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,4 +96,3 @@ public class Incertar {
         stage.show();
     }
 }
-

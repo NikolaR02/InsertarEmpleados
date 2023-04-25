@@ -2,6 +2,7 @@ package com.example.insertarempleados;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -74,9 +75,12 @@ public class MainControler {
             String SQL = "SELECT * "
                     + " FROM employees ";
             if (!tfCodigo.getText().equals("")) {
-                SQL += "WHERE employeeNumber LIKE '%" + tfCodigo.getText() + "%' ";
+                SQL += " WHERE employeeNumber LIKE '%" + tfCodigo.getText() + "%' " +
+                        " OR lastName LIKE '%" + tfCodigo.getText() + "%'" +
+                        " OR firstName LIKE '%" + tfCodigo.getText() + "%' ";
             }
-            SQL += "ORDER By employeeNumber";
+            SQL += " ORDER By employeeNumber";
+
 
             // Ejecutamos la consulta y nos devuelve una matriz de filas (registros) y columnas (datos)
             ResultSet resultadoConsulta = conexionBBDD.createStatement().executeQuery(SQL);
@@ -154,6 +158,7 @@ public class MainControler {
 
                     incertado = st.executeUpdate() == 1;
 
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                     System.out.println("Error:" + e);
@@ -161,6 +166,7 @@ public class MainControler {
                 // ---
 
                 if (incertado) {
+                    idSeleccionado = -1;
                     cargar();
                 } else {
                     alert = new Alert(Alert.AlertType.INFORMATION, "No se ha encontrado el empleado seleccionado '"
@@ -175,6 +181,8 @@ public class MainControler {
         }
     }
 
-    // TODO: 21/04/2023 Actualizar
-    // TODO: 21/04/2023 Mejora de UI
+    public void actualizar(ActionEvent actionEvent) {
+    }
+
+    // TODO: 25/04/2023 Actualizar, iconos para los botones, no cerrar la ventana de atras, espasio entre el titulo los botones y la tabla
 }

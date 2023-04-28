@@ -1,12 +1,9 @@
 package com.example.insertarempleados;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -63,6 +60,7 @@ public class IncertarControler {
             st.executeUpdate();
             st.close();
             conexionBBDD.close();
+            MainControler.ventana.cargar();
             volver();
 
         } catch (Exception e) {
@@ -75,20 +73,6 @@ public class IncertarControler {
     protected void volver() {
         Stage stageAct = (Stage) this.tfEmployeeNumber.getScene().getWindow();
         stageAct.close();
-
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(Inicio.class.getResource("main.fxml"));
-        Scene scene;
-        try {
-            scene = new Scene(fxmlLoader.load(), 755, 600);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        stage.setTitle("Empleados");
-        stage.setMinWidth(650.0);
-        stage.setMinHeight(400.0);
-        stage.setScene(scene);
-        stage.show();
     }
 }
 

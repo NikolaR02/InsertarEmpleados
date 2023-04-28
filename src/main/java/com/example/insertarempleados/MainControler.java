@@ -2,12 +2,12 @@ package com.example.insertarempleados;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -41,15 +41,20 @@ public class MainControler {
     private Connection conexionBBDD;
 
     static int idSeleccionado=-1;
+    public static Employee empleadoSeleccionado;
+
+    public static MainControler ventana;
 
 
     public void initialize() {
+        ventana = this;
         cargar();
         tabla.setRowFactory(tv -> {
             TableRow<Employee> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty()) {
                     idSeleccionado = row.getItem().getEmployeeNumber();
+                    empleadoSeleccionado = row.getItem();
                 }
             });
             return row;
@@ -57,7 +62,7 @@ public class MainControler {
     }
 
     @FXML
-    protected void cargar() {
+    public void cargar() {
         tcCodigo.setCellValueFactory(new PropertyValueFactory<>("employeeNumber"));
         tcApellido.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         tcNombre.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -79,7 +84,7 @@ public class MainControler {
                         " OR lastName LIKE '%" + tfCodigo.getText() + "%'" +
                         " OR firstName LIKE '%" + tfCodigo.getText() + "%' ";
             }
-            SQL += " ORDER By employeeNumber";
+            SQL += " ORDER By lastName";
 
 
             // Ejecutamos la consulta y nos devuelve una matriz de filas (registros) y columnas (datos)
@@ -113,9 +118,6 @@ public class MainControler {
 
     @FXML
     protected void insertar() {
-        Stage stageAct = (Stage) this.tabla.getScene().getWindow();
-        stageAct.close();
-
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Inicio.class.getResource("incertar.fxml"));
         Scene scene;
@@ -127,6 +129,7 @@ public class MainControler {
         stage.setTitle("Insertar");
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 
@@ -181,8 +184,26 @@ public class MainControler {
         }
     }
 
-    public void actualizar(ActionEvent actionEvent) {
-    }
+    public void actualizar() {
 
-    // TODO: 25/04/2023 Actualizar, iconos para los botones, no cerrar la ventana de atras, espasio entre el titulo los botones y la tabla
+        if (idSeleccionado != -1) {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(Inicio.class.getResource("actualizar.fxml"));
+            Scene scene;
+            try {
+                scene = new Scene(fxmlLoader.load(), 420, 540);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            stage.setTitle("Actualizar");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Debe seleccionar un empleado con click sobre la tabla para actualizar.", ButtonType.OK);
+            alert.showAndWait();
+        }
+
+    }
 }

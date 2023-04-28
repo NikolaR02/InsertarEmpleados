@@ -49,7 +49,7 @@
       <padding>
          <Insets right="50.0" />
       </padding>
-      <TextField fx:id="tfEmployeeNumber" />
+      <TextField fx:id="tfEmployeeNumber" disable="true" editable="false" />
       <TextField fx:id="tfLastName" />
       <TextField fx:id="tfFirstName" />
       <TextField fx:id="tfExtension" />
@@ -58,17 +58,17 @@
       <TextField fx:id="tfReportsTo" />
       <TextField fx:id="tfJobTitle" />
    </VBox>
-   <Button mnemonicParsing="false" onAction="#altaEmployee" prefHeight="35.0" prefWidth="80.0" text="Aceptar" GridPane.columnIndex="1" GridPane.rowIndex="2">
+   <Button mnemonicParsing="false" onAction="#actualizarEmployee" prefHeight="35.0" prefWidth="40.0" text="✔" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <GridPane.margin>
-         <Insets bottom="10.0" left="75.0" />
+         <Insets bottom="10.0" left="100.0" />
       </GridPane.margin>
       <font>
          <Font size="14.0" />
       </font>
    </Button>
-   <Button mnemonicParsing="false" onAction="#volver" prefHeight="35.0" prefWidth="80.0" text="Volver" GridPane.rowIndex="2">
+   <Button mnemonicParsing="false" onAction="#volver" prefHeight="35.0" prefWidth="40.0" text="⏪" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <GridPane.margin>
-         <Insets bottom="10.0" left="65.0" />
+         <Insets bottom="10.0" left="40.0" />
       </GridPane.margin>
       <font>
          <Font size="14.0" />

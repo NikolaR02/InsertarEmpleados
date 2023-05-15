@@ -55,6 +55,7 @@ public class MainControler {
                 if (!row.isEmpty()) {
                     idSeleccionado = row.getItem().getEmployeeNumber();
                     empleadoSeleccionado = row.getItem();
+                    if (event.getClickCount() == 2) actualizar();
                 }
             });
             return row;

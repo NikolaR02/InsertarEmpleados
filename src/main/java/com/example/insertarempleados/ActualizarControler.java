@@ -48,7 +48,8 @@ public class ActualizarControler {
             Connection conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
 
             String SQL = "UPDATE employees "
-                        + " SET lastName = ? ,"
+                        + " SET employeeNumber = ? ,"
+                        + " lastName = ? ,"
                         + " firstName = ? ,"
                         + " extension = ? ,"
                         + " email = ? ,"
@@ -58,13 +59,15 @@ public class ActualizarControler {
                         + " WHERE employeeNumber = " + MainControler.idSeleccionado;
 
             PreparedStatement st = conexionBBDD.prepareStatement(SQL);
-            st.setString(1, tfLastName.getText());
-            st.setString(2, tfFirstName.getText());
-            st.setString(3, tfExtension.getText());
-            st.setString(4, tfEmail.getText());
-            st.setString(5, tfOfficeCode.getText());
-            st.setInt(6, Integer.parseInt(tfReportsTo.getText()));
-            st.setString(7, tfJobTitle.getText());
+
+            st.setInt(1, Integer.parseInt(tfEmployeeNumber.getText()));
+            st.setString(2, tfLastName.getText());
+            st.setString(3, tfFirstName.getText());
+            st.setString(4, tfExtension.getText());
+            st.setString(5, tfEmail.getText());
+            st.setString(6, tfOfficeCode.getText());
+            st.setInt(7, Integer.parseInt(tfReportsTo.getText()));
+            st.setString(8, tfJobTitle.getText());
 
             // Ejecutamos la consulta preparada con los empleados de seguridad y velocidad en el servidor de BBDD
             // nos devuelve el número de registros afectados. Al ser un Insert nos debe devolver 1 si se ha hecho correctamente

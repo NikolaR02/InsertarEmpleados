@@ -49,7 +49,7 @@
       <padding>
          <Insets right="50.0" />
       </padding>
-      <TextField fx:id="tfEmployeeNumber" disable="true" editable="false" />
+      <TextField fx:id="tfEmployeeNumber" />
       <TextField fx:id="tfLastName" />
       <TextField fx:id="tfFirstName" />
       <TextField fx:id="tfExtension" />

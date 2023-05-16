@@ -1,12 +1,15 @@
 package com.example.insertarempleados;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
 
 public class ActualizarControler {
 
@@ -27,6 +30,13 @@ public class ActualizarControler {
     private TextField tfReportsTo;
     @FXML
     private TextField tfJobTitle;
+    @FXML
+    private ChoiceBox<String> cboOficina;
+
+    HashMap<Integer, String> hmOficinas = new HashMap<>();
+    String servidor = "jdbc:mariadb://localhost:5555/noinch?useSSL=false";
+    String usuario = "root";
+    String passwd = "adminer";
 
     public void initialize() {
         tfEmployeeNumber.setText(String.valueOf(MainControler.empleadoSeleccionado.getEmployeeNumber()));
@@ -37,16 +47,42 @@ public class ActualizarControler {
         tfOfficeCode.setText(MainControler.empleadoSeleccionado.getOfficeCode());
         tfReportsTo.setText(String.valueOf(MainControler.empleadoSeleccionado.getReportsTo()));
         tfJobTitle.setText(MainControler.empleadoSeleccionado.getJobTitle());
+
+        try {
+            Connection conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
+            String SQL = "SELECT city, officeCode "
+                    + " FROM offices "
+                    + " ORDER By city";
+
+
+            ResultSet resultadoConsulta = conexionBBDD.createStatement().executeQuery(SQL);
+            while (resultadoConsulta.next()) {
+                // Agregar elementos al desplegable
+                cboOficina.getItems().add(resultadoConsulta.getString("city"));
+                // Agregar elementos al mapa
+                hmOficinas.put(resultadoConsulta.getInt("officeCode"), resultadoConsulta.getString("city"));
+
+            }
+            conexionBBDD.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error:" + e);
+        }
+
+        // Establecer un valor predeterminado
+        cboOficina.setValue( MainControler.empleadoSeleccionado.getOfficeCode());
+
+        // Manejar los eventos de selección
+        cboOficina.setOnAction(event -> {
+            String seleccion = cboOficina.getValue();
+            System.out.println("Opción seleccionada: " + seleccion);
+        });
     }
 
     @FXML
     public void actualizarEmployee() {
         try {
-            String servidor = "jdbc:mariadb://localhost:5555/noinch?useSSL=false";
-            String usuario = "root";
-            String passwd = "adminer";
             Connection conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
-
             String SQL = "UPDATE employees "
                         + " SET employeeNumber = ? ,"
                         + " lastName = ? ,"

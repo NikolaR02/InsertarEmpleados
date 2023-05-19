@@ -55,8 +55,7 @@
       <TextField fx:id="tfFirstName" />
       <TextField fx:id="tfExtension" />
       <TextField fx:id="tfEmail" />
-      <ChoiceBox fx:id="cboOficina" prefWidth="150.0" />
-      <TextField fx:id="tfOfficeCode" />
+      <ChoiceBox fx:id="cboOficina" prefWidth="170.0" />
       <TextField fx:id="tfReportsTo" />
       <TextField fx:id="tfJobTitle" />
    </VBox>

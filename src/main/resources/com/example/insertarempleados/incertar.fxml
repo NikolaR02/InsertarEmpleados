@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Reflection?>
@@ -54,7 +55,7 @@
       <TextField fx:id="tfFirstName" />
       <TextField fx:id="tfExtension" />
       <TextField fx:id="tfEmail" />
-      <TextField fx:id="tfOfficeCode" />
+      <ChoiceBox fx:id="cboOficina" prefWidth="170.0" />
       <TextField fx:id="tfReportsTo" />
       <TextField fx:id="tfJobTitle" />
    </VBox>

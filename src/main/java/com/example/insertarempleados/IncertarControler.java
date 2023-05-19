@@ -1,12 +1,15 @@
 package com.example.insertarempleados;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
 
 public class IncertarControler {
 
@@ -21,11 +24,43 @@ public class IncertarControler {
     @FXML
     private TextField tfEmail;
     @FXML
-    private TextField tfOfficeCode;
-    @FXML
     private TextField tfReportsTo;
     @FXML
     private TextField tfJobTitle;
+    @FXML
+    private ChoiceBox<String> cboOficina;
+
+    HashMap<String, String> hmOficinas = new HashMap<String, String>();
+    String servidor = "jdbc:mariadb://localhost:5555/noinch?useSSL=false";
+    String usuario = "root";
+    String passwd = "adminer";
+
+    public void initialize() {
+
+        try {
+            Connection conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
+            String SQL = "SELECT city, officeCode "
+                    + " FROM offices "
+                    + " ORDER By officeCode";
+
+
+            ResultSet resultadoConsulta = conexionBBDD.createStatement().executeQuery(SQL);
+            while (resultadoConsulta.next()) {
+                // Agregar elementos al desplegable
+                cboOficina.getItems().add(resultadoConsulta.getString("city"));
+                // Agregar elementos al mapa
+                hmOficinas.put(resultadoConsulta.getString("city"), resultadoConsulta.getString("officeCode"));
+
+            }
+            conexionBBDD.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error:" + e);
+        }
+
+        // Establecer un valor predeterminado
+        cboOficina.setValue("Elige una oficina");
+    }
 
     @FXML
     public void altaEmployee() {
@@ -51,7 +86,7 @@ public class IncertarControler {
             st.setString(3, tfFirstName.getText());
             st.setString(4, tfExtension.getText());
             st.setString(5, tfEmail.getText());
-            st.setString(6, tfOfficeCode.getText());
+            st.setString(6, hmOficinas.get(cboOficina.getValue()));
             st.setInt(7, Integer.parseInt(tfReportsTo.getText()));
             st.setString(8, tfJobTitle.getText());
 

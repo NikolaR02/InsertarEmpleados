@@ -25,34 +25,23 @@ public class ActualizarControler {
     @FXML
     private TextField tfEmail;
     @FXML
-    private TextField tfOfficeCode;
-    @FXML
     private TextField tfReportsTo;
     @FXML
     private TextField tfJobTitle;
     @FXML
     private ChoiceBox<String> cboOficina;
 
-    HashMap<Integer, String> hmOficinas = new HashMap<>();
+    HashMap<String, String> hmOficinas = new HashMap<String, String>();
     String servidor = "jdbc:mariadb://localhost:5555/noinch?useSSL=false";
     String usuario = "root";
     String passwd = "adminer";
 
     public void initialize() {
-        tfEmployeeNumber.setText(String.valueOf(MainControler.empleadoSeleccionado.getEmployeeNumber()));
-        tfLastName.setText(MainControler.empleadoSeleccionado.getLastName());
-        tfFirstName.setText(MainControler.empleadoSeleccionado.getFirstName());
-        tfExtension.setText(MainControler.empleadoSeleccionado.getExtension());
-        tfEmail.setText(MainControler.empleadoSeleccionado.getEmail());
-        tfOfficeCode.setText(MainControler.empleadoSeleccionado.getOfficeCode());
-        tfReportsTo.setText(String.valueOf(MainControler.empleadoSeleccionado.getReportsTo()));
-        tfJobTitle.setText(MainControler.empleadoSeleccionado.getJobTitle());
-
         try {
             Connection conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
             String SQL = "SELECT city, officeCode "
                     + " FROM offices "
-                    + " ORDER By city";
+                    + " ORDER By officeCode";
 
 
             ResultSet resultadoConsulta = conexionBBDD.createStatement().executeQuery(SQL);
@@ -60,7 +49,7 @@ public class ActualizarControler {
                 // Agregar elementos al desplegable
                 cboOficina.getItems().add(resultadoConsulta.getString("city"));
                 // Agregar elementos al mapa
-                hmOficinas.put(resultadoConsulta.getInt("officeCode"), resultadoConsulta.getString("city"));
+                hmOficinas.put(resultadoConsulta.getString("city"), resultadoConsulta.getString("officeCode"));
 
             }
             conexionBBDD.close();
@@ -69,14 +58,14 @@ public class ActualizarControler {
             System.out.println("Error:" + e);
         }
 
-        // Establecer un valor predeterminado
-        cboOficina.setValue( MainControler.empleadoSeleccionado.getOfficeCode());
-
-        // Manejar los eventos de selección
-        cboOficina.setOnAction(event -> {
-            String seleccion = cboOficina.getValue();
-            System.out.println("Opción seleccionada: " + seleccion);
-        });
+        tfEmployeeNumber.setText(String.valueOf(MainControler.empleadoSeleccionado.getEmployeeNumber()));
+        tfLastName.setText(MainControler.empleadoSeleccionado.getLastName());
+        tfFirstName.setText(MainControler.empleadoSeleccionado.getFirstName());
+        tfExtension.setText(MainControler.empleadoSeleccionado.getExtension());
+        tfEmail.setText(MainControler.empleadoSeleccionado.getEmail());
+        cboOficina.setValue(MainControler.empleadoSeleccionado.getOfficeCode());
+        tfReportsTo.setText(String.valueOf(MainControler.empleadoSeleccionado.getReportsTo()));
+        tfJobTitle.setText(MainControler.empleadoSeleccionado.getJobTitle());
     }
 
     @FXML
@@ -101,7 +90,7 @@ public class ActualizarControler {
             st.setString(3, tfFirstName.getText());
             st.setString(4, tfExtension.getText());
             st.setString(5, tfEmail.getText());
-            st.setString(6, tfOfficeCode.getText());
+            st.setString(6, hmOficinas.get(cboOficina.getValue()));
             st.setInt(7, Integer.parseInt(tfReportsTo.getText()));
             st.setString(8, tfJobTitle.getText());
 

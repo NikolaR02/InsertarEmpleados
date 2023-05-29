@@ -35,14 +35,8 @@ public class MainControler {
     @FXML
     private TextField tfCodigo;
 
-    private final String servidor = "jdbc:mariadb://localhost:5555/noinch?useSSL=false";
-    private final String usuario = "root";
-    private final String passwd = "adminer";
-    private Connection conexionBBDD;
-
     static int idSeleccionado=-1;
     public static Employee empleadoSeleccionado;
-
     public static MainControler ventana;
 
 
@@ -76,8 +70,9 @@ public class MainControler {
 
         //  ---DAO
         ObservableList<Employee> datosResultadoConsulta = FXCollections.observableArrayList();
+        Connection c = null;
         try {
-            conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
+            c = DBConnection.getConnection();
             String SQL = "SELECT * "
                     + " FROM employees ";
             if (!tfCodigo.getText().equals("")) {
@@ -89,7 +84,7 @@ public class MainControler {
 
 
             // Ejecutamos la consulta y nos devuelve una matriz de filas (registros) y columnas (datos)
-            ResultSet resultadoConsulta = conexionBBDD.createStatement().executeQuery(SQL);
+            ResultSet resultadoConsulta = c.createStatement().executeQuery(SQL);
 
             // Debemos cargar los datos en el ObservableList (Que es un ArrayList especial)
             // Los datos que devuelve la consulta no son directamente cargables en nuestro objeto
@@ -106,12 +101,12 @@ public class MainControler {
                 );
                 System.out.println("Row [1] added " + resultadoConsulta);
             }
-            conexionBBDD.close();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error:" + e);
+        } finally {
+            DBConnection.closeConnection(c);
         }
-        // ---
 
         tabla.setItems(datosResultadoConsulta);
 
@@ -150,22 +145,23 @@ public class MainControler {
 
                 // --- DAO
                 PreparedStatement st;
+                Connection c = null;
                 try {
-
-                    conexionBBDD = DriverManager.getConnection(servidor, usuario, passwd);
+                    c = DBConnection.getConnection();
 
                     String SQL = "DELETE FROM employees "
                             + " WHERE employeeNumber = ? ";
 
-                    st = conexionBBDD.prepareStatement(SQL);
+                    st = c.prepareStatement(SQL);
                     st.setString(1, String.valueOf(idSeleccionado));
 
                     incertado = st.executeUpdate() == 1;
 
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                     System.out.println("Error:" + e);
+                } finally {
+                    DBConnection.closeConnection(c);
                 }
                 // ---
 

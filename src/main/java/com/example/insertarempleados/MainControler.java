@@ -67,38 +67,35 @@ public class MainControler {
         tcSuperior.setCellValueFactory(new PropertyValueFactory<>("reportsTo"));
         tcTitulo.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
 
-
-        //  ---DAO
         ObservableList<Employee> datosResultadoConsulta = FXCollections.observableArrayList();
         Connection c = null;
         try {
             c = DBConnection.getConnection();
-            String SQL = "SELECT * "
-                    + " FROM employees ";
+            String SQL = "SELECT e.employeeNumber, e.lastName, e.firstName, e.extension, e.email, " +
+                    "o.city AS officeCity, r.lastName AS superiorLastName, e.jobTitle " +
+                    "FROM employees e " +
+                    "JOIN offices o ON e.officeCode = o.officeCode " +
+                    "LEFT JOIN employees r ON e.reportsTo = r.employeeNumber ";
             if (!tfCodigo.getText().equals("")) {
-                SQL += " WHERE employeeNumber LIKE '%" + tfCodigo.getText() + "%' " +
-                        " OR lastName LIKE '%" + tfCodigo.getText() + "%'" +
-                        " OR firstName LIKE '%" + tfCodigo.getText() + "%' ";
+                SQL += "WHERE e.employeeNumber LIKE '%" + tfCodigo.getText() + "%' " +
+                        "OR e.lastName LIKE '%" + tfCodigo.getText() + "%' " +
+                        "OR e.firstName LIKE '%" + tfCodigo.getText() + "%' ";
             }
-            SQL += " ORDER By lastName";
+            SQL += "ORDER BY e.lastName";
 
-
-            // Ejecutamos la consulta y nos devuelve una matriz de filas (registros) y columnas (datos)
             ResultSet resultadoConsulta = c.createStatement().executeQuery(SQL);
 
-            // Debemos cargar los datos en el ObservableList (Que es un ArrayList especial)
-            // Los datos que devuelve la consulta no son directamente cargables en nuestro objeto
             while (resultadoConsulta.next()) {
-                datosResultadoConsulta.add(new Employee(
-                        resultadoConsulta.getInt("employeeNumber"),
-                        resultadoConsulta.getString("lastName"),
-                        resultadoConsulta.getString("firstName"),
-                        resultadoConsulta.getString("extension"),
-                        resultadoConsulta.getString("email"),
-                        resultadoConsulta.getString("officeCode"),
-                        resultadoConsulta.getInt("reportsTo"),
-                        resultadoConsulta.getString("jobTitle"))
-                );
+                int employeeNumber = resultadoConsulta.getInt("employeeNumber");
+                String lastName = resultadoConsulta.getString("lastName");
+                String firstName = resultadoConsulta.getString("firstName");
+                String extension = resultadoConsulta.getString("extension");
+                String email = resultadoConsulta.getString("email");
+                String officeCity = resultadoConsulta.getString("officeCity");
+                String superiorLastName = resultadoConsulta.getString("superiorLastName");
+                String jobTitle = resultadoConsulta.getString("jobTitle");
+
+                datosResultadoConsulta.add(new Employee(employeeNumber, lastName, firstName, extension, email, officeCity, superiorLastName, jobTitle));
                 System.out.println("Row [1] added " + resultadoConsulta);
             }
         } catch (Exception e) {
@@ -109,8 +106,8 @@ public class MainControler {
         }
 
         tabla.setItems(datosResultadoConsulta);
-
     }
+
 
     @FXML
     protected void insertar() {

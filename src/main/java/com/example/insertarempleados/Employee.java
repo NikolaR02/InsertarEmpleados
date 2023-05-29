@@ -7,10 +7,10 @@ public class Employee {
     private String extension;
     private String email;
     private String officeCode;
-    private int reportsTo;
+    private String reportsTo;
     private String jobTitle;
 
-    public Employee(int employeeNumber, String lastName, String firstName, String extension, String email, String officeCode, Integer reportsTo, String jobTitle) {
+    public Employee(int employeeNumber, String lastName, String firstName, String extension, String email, String officeCode, String reportsTo, String jobTitle) {
         this.employeeNumber = employeeNumber;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -71,11 +71,11 @@ public class Employee {
         this.officeCode = officeCode;
     }
 
-    public int getReportsTo() {
+    public String getReportsTo() {
         return reportsTo;
     }
 
-    public void setReportsTo(int reportsTo) {
+    public void setReportsTo(String reportsTo) {
         this.reportsTo = reportsTo;
     }
 

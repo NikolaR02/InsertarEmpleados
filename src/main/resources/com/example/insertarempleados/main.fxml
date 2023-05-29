@@ -27,10 +27,10 @@
          <TableColumn fx:id="tcCodigo" prefWidth="51.0" text="Código" />
          <TableColumn fx:id="tcApellido" prefWidth="81.0" text="Apellido" />
          <TableColumn fx:id="tcNombre" prefWidth="79.0" text="Nombre" />
-         <TableColumn fx:id="tcExtencion" prefWidth="78.0" text="Extención" />
-         <TableColumn fx:id="tcEmail" minWidth="0.0" prefWidth="189.0" text="Email" />
-         <TableColumn fx:id="tcOficina" minWidth="0.0" prefWidth="66.0" text="C. oficina" />
-         <TableColumn fx:id="tcSuperior" prefWidth="67.0" text="C. superior" />
+         <TableColumn fx:id="tcExtencion" prefWidth="60.0" text="Extención" />
+         <TableColumn fx:id="tcEmail" minWidth="0.0" prefWidth="184.0" text="Email" />
+         <TableColumn fx:id="tcOficina" minWidth="0.0" prefWidth="89.0" text="Oficina" />
+         <TableColumn fx:id="tcSuperior" prefWidth="67.0" text="Superior" />
          <TableColumn fx:id="tcTitulo" prefWidth="87.0" text="Titulo" />
       </columns>
       <GridPane.margin>

@@ -45,13 +45,13 @@ public class IncertarControler {
                 hmOficinas.put(resultadoConsulta.getString("city"), resultadoConsulta.getString("officeCode"));
             }
 
-            String SQL2 = "SELECT employeeNumber, CONCAT(firstName, ' ', lastName) AS name FROM employees ORDER BY employeeNumber";
+            String SQL2 = "SELECT employeeNumber, CONCAT(lastName , ', ', firstName) AS name FROM employees ORDER BY name";
             ResultSet resultadoConsulta2 = c.createStatement().executeQuery(SQL2);
             while (resultadoConsulta2.next()) {
                 // Agregar elementos al desplegable
-                cboReportsTo.getItems().add(resultadoConsulta.getString("name"));
+                cboReportsTo.getItems().add(resultadoConsulta2.getString("name"));
                 // Agregar elementos al mapa
-                hmEmployees.put(resultadoConsulta.getString("name"), resultadoConsulta.getString("employeeNumber"));
+                hmEmployees.put(resultadoConsulta2.getString("name"), resultadoConsulta2.getString("employeeNumber"));
             }
         } catch (Exception e) {
             e.printStackTrace();

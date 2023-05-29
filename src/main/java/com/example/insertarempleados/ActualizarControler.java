@@ -64,17 +64,8 @@ public class ActualizarControler {
         tfExtension.setText(MainControler.empleadoSeleccionado.getExtension());
         tfEmail.setText(MainControler.empleadoSeleccionado.getEmail());
         cboOficina.setValue(MainControler.empleadoSeleccionado.getOfficeCode());
-        cboReportsTo.setValue(getEmployeeName(MainControler.empleadoSeleccionado.getReportsTo()));
+        cboReportsTo.setValue(MainControler.empleadoSeleccionado.getReportsTo());
         tfJobTitle.setText(MainControler.empleadoSeleccionado.getJobTitle());
-    }
-
-    private String getEmployeeName(int employeeNumber) { // temporal hasta que mejore la tabla
-        for (HashMap.Entry<String, Integer> entry : hmEmployees.entrySet()) {
-            if (entry.getValue() == employeeNumber) {
-                return entry.getKey();
-            }
-        }
-        return "";
     }
 
     @FXML

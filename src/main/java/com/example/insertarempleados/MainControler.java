@@ -9,9 +9,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MainControler {
     @FXML
@@ -199,5 +203,14 @@ public class MainControler {
             alert.showAndWait();
         }
 
+    }
+
+    public void informe() {
+        try {
+            // --- Show Jasper Report on click-----
+            new Report().showReportSimple();
+        } catch (ClassNotFoundException | JRException | SQLException e1) {
+            e1.printStackTrace();
+        }
     }
 }

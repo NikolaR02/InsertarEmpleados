@@ -47,6 +47,14 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>2.6.2</version>
         </dependency>
+
+        <!-- reportes -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.18.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

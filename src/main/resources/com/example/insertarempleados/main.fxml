@@ -83,5 +83,10 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Button mnemonicParsing="false" onAction="#informe" prefHeight="35.0" prefWidth="40.0" text="📄">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </HBox>
 </GridPane>

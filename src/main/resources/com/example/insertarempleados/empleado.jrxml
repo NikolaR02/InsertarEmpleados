@@ -5,16 +5,17 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<queryString>
 		<![CDATA[SELECT e.employeeNumber,
-       e.lastName,
-       e.firstName,
-       e.extension,
-       e.email,
-       o.city AS officeCity,
-       emp.lastName AS reportsToLastName,
-       e.jobTitle
+       COALESCE(e.lastName, '') AS lastName,
+       COALESCE(e.firstName, '') AS firstName,
+       COALESCE(e.extension, '') AS extension,
+       COALESCE(e.email, '') AS email,
+       COALESCE(o.city, '') AS officeCity,
+       COALESCE(emp.lastName, '') AS reportsToLastName,
+       COALESCE(e.jobTitle, '') AS jobTitle
 FROM employees e
 LEFT JOIN offices o ON e.officeCode = o.officeCode
-LEFT JOIN employees emp ON e.reportsTo = emp.employeeNumber]]>
+LEFT JOIN employees emp ON e.reportsTo = emp.employeeNumber
+ORDER BY o.city]]>
 	</queryString>
 	<field name="employeeNumber" class="java.lang.Integer"/>
 	<field name="lastName" class="java.lang.String"/>

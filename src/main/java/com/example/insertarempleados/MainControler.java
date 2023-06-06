@@ -85,7 +85,7 @@ public class MainControler {
                         "OR e.lastName LIKE '%" + tfCodigo.getText() + "%' " +
                         "OR e.firstName LIKE '%" + tfCodigo.getText() + "%' ";
             }
-            SQL += "ORDER BY e.lastName";
+            SQL += "ORDER BY o.city";
 
             ResultSet resultadoConsulta = c.createStatement().executeQuery(SQL);
 

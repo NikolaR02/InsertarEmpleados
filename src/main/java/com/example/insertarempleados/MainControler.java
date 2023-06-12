@@ -100,7 +100,6 @@ public class MainControler {
                 String jobTitle = resultadoConsulta.getString("jobTitle");
 
                 datosResultadoConsulta.add(new Employee(employeeNumber, lastName, firstName, extension, email, officeCity, superiorLastName, jobTitle));
-                System.out.println("Row [1] added " + resultadoConsulta);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,3 +1,5 @@
+package com.example.insertarempleados;
+
 import com.example.insertarempleados.DBConnection;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

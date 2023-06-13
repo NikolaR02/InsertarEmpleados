@@ -1,6 +1,7 @@
 package com.example.insertarempleados;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -31,6 +32,8 @@ public class IncertarControler {
 
     HashMap<String, String> hmOficinas = new HashMap<>();
     HashMap<String, String> hmEmployees = new HashMap<>();
+    @FXML
+    private Button altaEmployee;
 
     public void initialize() {
         Connection c = null;

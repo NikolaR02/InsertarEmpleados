@@ -212,4 +212,8 @@ public class MainControler {
             e1.printStackTrace();
         }
     }
+
+    TableView<Employee> getTabla() {
+        return tabla;
+    }
 }

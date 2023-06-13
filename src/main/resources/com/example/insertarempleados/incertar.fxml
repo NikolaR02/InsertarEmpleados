@@ -59,7 +59,7 @@
       <ChoiceBox fx:id="cboReportsTo" prefWidth="170.0" />
       <TextField fx:id="tfJobTitle" />
    </VBox>
-   <Button mnemonicParsing="false" onAction="#altaEmployee" prefHeight="35.0" prefWidth="40.0" text="✔" GridPane.columnIndex="1" GridPane.rowIndex="2">
+   <Button fx:id="altaEmployee" mnemonicParsing="false" onAction="#altaEmployee" prefHeight="35.0" prefWidth="40.0" text="✔" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <GridPane.margin>
          <Insets bottom="10.0" left="100.0" />
       </GridPane.margin>
@@ -67,7 +67,7 @@
          <Font size="14.0" />
       </font>
    </Button>
-   <Button mnemonicParsing="false" onAction="#volver" prefHeight="35.0" prefWidth="40.0" text="⏪" GridPane.columnIndex="1" GridPane.rowIndex="2">
+   <Button  mnemonicParsing="false" onAction="#volver" prefHeight="35.0" prefWidth="40.0" text="⏪" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <GridPane.margin>
          <Insets bottom="10.0" left="40.0" />
       </GridPane.margin>
